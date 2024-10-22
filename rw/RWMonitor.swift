@@ -64,7 +64,32 @@ class RWMonitor {
             if excludes.contains(where: { $0.contains(fileURL) }) {
                 return
             }
-            RWFileModel.insert(using: [event.path])
+            var eventType = RWEventType.unknown
+            if event.fileCreated {
+                eventType = .fileCreated
+            }
+            if event.fileRemoved {
+                eventType = .fileRemoved
+            }
+            if event.fileRenamed {
+                eventType = .fileRenamed
+            }
+            if event.fileModified {
+                eventType = .fileChanged
+            }
+            if event.dirCreated {
+                eventType = .dirCreated
+            }
+            if event.dirRemoved {
+                eventType = .dirRemoved
+            }
+            if event.dirRenamed {
+                eventType = .dirRenamed
+            }
+            if event.dirModified {
+                eventType = .dirChanged
+            }
+            RWFileModel.insert(using: [event.path], for: eventType)
         }
         
         RWState.global.$isRunning

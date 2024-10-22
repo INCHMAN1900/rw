@@ -111,7 +111,11 @@ struct RWView: View {
                 TableColumn("Log Date", content: { row in
                     Text(row.createdAt.toDateString())
                 })
-                .width(ideal: 140)
+                .width(min: 60, ideal: 150)
+                TableColumn("Log Type", content: { row in
+                    Text(row.eventType.label)
+                })
+                .width(min: 60, ideal: 120)
                 TableColumn("File Creation Date", content: { row in
                     HStack {
                         if row.creationDate < 0 {
@@ -122,7 +126,7 @@ struct RWView: View {
                         }
                     }
                 })
-                .width(ideal: 140)
+                .width(ideal: 150)
                 TableColumn("File Size", content: { row in
                     HStack {
                         if row.creationDate <= 0 {
@@ -133,7 +137,7 @@ struct RWView: View {
                         }
                     }
                 })
-                .width(ideal: 140)
+                .width(ideal: 90)
             })
             HStack {
                 Button(action: {

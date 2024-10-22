@@ -10,6 +10,42 @@ import SQLite
 
 typealias SQLiteExpression = SQLite.Expression
 
+enum RWEventType: String {
+    case fileCreated
+    case fileChanged
+    case fileRenamed
+    case fileRemoved
+    
+    case dirCreated
+    case dirChanged
+    case dirRenamed
+    case dirRemoved
+    
+    case unknown
+    
+    var label: String {
+        switch self {
+        case .fileCreated:
+            return "File Created"
+        case .fileChanged:
+            return "File Changed"
+        case .fileRenamed:
+            return "File Renamed"
+        case .fileRemoved:
+            return "File Removed"
+        case .dirCreated:
+            return "Dir Created"
+        case .dirChanged:
+            return "Dir Changed"
+        case .dirRenamed:
+            return "Dir Renamed"
+        case .dirRemoved:
+            return "Dir Removed"
+        case .unknown:
+            return "-"
+        }
+    }
+}
 
 class RWFileModel {
     static let table = Table("rw_file")
@@ -18,6 +54,7 @@ class RWFileModel {
     struct Column {
         static let id = SQLiteExpression<Int64>("id")
         static let path = SQLiteExpression<String>("path")
+        static let eventType = SQLiteExpression<String>("event_type")
         static let contentType = SQLiteExpression<String>("content_type")
         static let size = SQLiteExpression<Int>("allocated_size")
         static let creationDate = SQLiteExpression<Int64>("creation_date")
@@ -28,6 +65,7 @@ class RWFileModel {
     struct Entity: Identifiable {
         let id: Int64
         var path: String
+        var eventType: RWEventType
         var contentType: String
         var size: Int
         var creationDate: Int64
@@ -39,6 +77,7 @@ class RWFileModel {
             let setter = [
                 Column.path                 <- path,
                 Column.contentType          <- contentType,
+                Column.eventType            <- eventType.rawValue,
                 Column.size                 <- size,
                 Column.creationDate         <- creationDate,
                 Column.modificationDate     <- modificationDate,
@@ -51,6 +90,7 @@ class RWFileModel {
             return Entity(
                 id:                 row[Column.id],
                 path:               row[Column.path],
+                eventType:          RWEventType(rawValue: row[Column.eventType]) ?? .unknown,
                 contentType:        row[Column.contentType],
                 size:               row[Column.size],
                 creationDate:       row[Column.creationDate],
@@ -66,6 +106,7 @@ class RWFileModel {
                 return Entity(
                     id: -1,
                     path: url.path(percentEncoded: false),
+                    eventType: .unknown,
                     contentType: "",
                     size: 0,
                     creationDate: -1,
@@ -83,6 +124,7 @@ class RWFileModel {
             return Entity(
                 id: -1,
                 path: url.path(percentEncoded: false),
+                eventType: .unknown,
                 contentType: resourceValues.contentType?.identifier ?? "",
                 size: resourceValues.totalFileSize ?? 0,
                 creationDate: resourceValues.creationDate?.timestamp ?? -1,
@@ -113,23 +155,13 @@ class RWFileModel {
         return (0, [])
     }
     
-    public static func insert(using path: String) {
-        guard let db = SQLiteTools.getConnection() else { return }
-        do {
-            if let entity = Entity.from(url: URL(fileURLWithPath: path)) {
-                try db.run(table.insert(entity.setter))
-            }
-        } catch {
-            logger.log("Insert file failed: \(error.localizedDescription)")
-        }
-    }
-    
-    public static func insert(using paths: [String]) {
+    public static func insert(using paths: [String], for eventType: RWEventType) {
         guard let db = SQLiteTools.getConnection() else { return }
         do {
             var entities = [Entity]()
             for path in paths {
-                if let entity = Entity.from(url: URL(fileURLWithPath: path)) {
+                if var entity = Entity.from(url: URL(fileURLWithPath: path)) {
+                    entity.eventType = eventType
                     entities.append(entity)
                 }
             }
@@ -156,5 +188,10 @@ class RWFileModel {
         try connection.run(table.createIndex(Column.creationDate, ifNotExists: true))
         try connection.run(table.createIndex(Column.modificationDate, ifNotExists: true))
         try connection.run(table.createIndex(Column.createdAt, ifNotExists: true))
+        
+        SQLiteTools.ensureColumnExists(column: "event_type", in: "rw_file", addColumn: {
+            try connection.run(table.addColumn(Column.eventType, defaultValue: RWEventType.unknown.rawValue))
+            try connection.run(table.createIndex(Column.eventType, ifNotExists: true))
+        })
     }
 }
