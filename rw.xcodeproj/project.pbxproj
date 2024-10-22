@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1A64C9D32CC80FAD00353D20 /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 1A64C9D22CC80FAD00353D20 /* Defaults */; };
+		1AE1D6332CC4288B00C9E2AB /* FileWatcher in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE1D6322CC4288B00C9E2AB /* FileWatcher */; };
+		1AE1D6362CC428E400C9E2AB /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE1D6352CC428E400C9E2AB /* SQLite */; };
+		1AE1D6392CC4290A00C9E2AB /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE1D6382CC4290A00C9E2AB /* LaunchAtLogin */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		1A2B8A3D2CC42490002CD868 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A64C9D32CC80FAD00353D20 /* Defaults in Frameworks */,
+				1AE1D6392CC4290A00C9E2AB /* LaunchAtLogin in Frameworks */,
+				1AE1D6362CC428E400C9E2AB /* SQLite in Frameworks */,
+				1AE1D6332CC4288B00C9E2AB /* FileWatcher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +123,10 @@
 			);
 			name = rw;
 			packageProductDependencies = (
+				1AE1D6322CC4288B00C9E2AB /* FileWatcher */,
+				1AE1D6352CC428E400C9E2AB /* SQLite */,
+				1AE1D6382CC4290A00C9E2AB /* LaunchAtLogin */,
+				1A64C9D22CC80FAD00353D20 /* Defaults */,
 			);
 			productName = rw;
 			productReference = 1A2B8A2B2CC4248C002CD868 /* rw.app */;
@@ -195,6 +210,12 @@
 			);
 			mainGroup = 1A2B8A222CC4248C002CD868;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1AE1D6312CC4288B00C9E2AB /* XCRemoteSwiftPackageReference "FileWatcher" */,
+				1AE1D6342CC428E400C9E2AB /* XCRemoteSwiftPackageReference "SQLite" */,
+				1AE1D6372CC4290A00C9E2AB /* XCRemoteSwiftPackageReference "LaunchAtLogin-Legacy" */,
+				1A64C9D12CC80FAD00353D20 /* XCRemoteSwiftPackageReference "Defaults" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A2B8A2C2CC4248C002CD868 /* Products */;
 			projectDirPath = "";
@@ -397,7 +418,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"rw/Preview Content\"";
-				DEVELOPMENT_TEAM = FKZE2E3CS5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -424,7 +445,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"rw/Preview Content\"";
-				DEVELOPMENT_TEAM = FKZE2E3CS5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -549,6 +570,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A64C9D12CC80FAD00353D20 /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		1AE1D6312CC4288B00C9E2AB /* XCRemoteSwiftPackageReference "FileWatcher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/eonist/FileWatcher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.3;
+			};
+		};
+		1AE1D6342CC428E400C9E2AB /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.3;
+			};
+		};
+		1AE1D6372CC4290A00C9E2AB /* XCRemoteSwiftPackageReference "LaunchAtLogin-Legacy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Legacy";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A64C9D22CC80FAD00353D20 /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A64C9D12CC80FAD00353D20 /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		1AE1D6322CC4288B00C9E2AB /* FileWatcher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1AE1D6312CC4288B00C9E2AB /* XCRemoteSwiftPackageReference "FileWatcher" */;
+			productName = FileWatcher;
+		};
+		1AE1D6352CC428E400C9E2AB /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1AE1D6342CC428E400C9E2AB /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
+		};
+		1AE1D6382CC4290A00C9E2AB /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1AE1D6372CC4290A00C9E2AB /* XCRemoteSwiftPackageReference "LaunchAtLogin-Legacy" */;
+			productName = LaunchAtLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A2B8A232CC4248C002CD868 /* Project object */;
 }
