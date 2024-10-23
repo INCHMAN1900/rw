@@ -4,10 +4,33 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>SQLite (Playground).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>rw.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>1A2B8A2A2CC4248C002CD868</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1A2B8A3B2CC42490002CD868</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1A2B8A452CC42490002CD868</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
